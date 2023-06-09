@@ -13,7 +13,7 @@ public class Cliente implements Observe {
 	@Override
 	public void update(Auto auto) {
 		
-		System.out.println(nombre + ": El auto " + auto.getMarca() + "de color" + auto.getColor() + " ha sido actualizado.");
+		System.out.println(nombre + ": El auto " + auto.getMarca() + " de color " + auto.getColor() + " ha sido actualizado.");
 		
 	}
 }

@@ -3,31 +3,28 @@ import java.util.List;
 import java.util.ArrayList;
 
 public aspect ObserverAspect {
-	
-	private List<Auto> Auto.observers = new ArrayList<>();
+	private List<Auto> Concesionaria.autos = new ArrayList<>();
 
-    pointcut addObserverPointcut(Auto auto, Observe observer):
-    target(auto) && call(void addAuto(Auto)) && args(auto) && target(Concesionaria) && args(observer);
-    
-    
-    pointcut removeObserverPointcut(Auto auto, Observe observer):
-    target(auto) && call(void removeObserver(Observe)) && args(observer) && target(Concesionaria);
+    pointcut addObserverPointcut(Concesionaria concesionaria, Observe observer):
+        execution(void Concesionaria.addObserver(Observer)) && target(concesionaria) && args(observer);
 
-    pointcut updatePointcut(Auto auto):
-    target(auto) && call(void set*(String)) && args(String);
+    pointcut removeObserverPointcut(Concesionaria concesionaria, Observe observer):
+        execution(void Concesionaria.removeObserver(Observer)) && target(concesionaria) && args(observer);
 
-    after(Auto auto, Observe observer): addObserverPointcut(auto, observer) {
-        auto.observers.add(observer);
+    pointcut addAutoPointcut(Concesionaria concesionaria, Auto auto):
+        execution(void Concesionaria.addAuto(Auto)) && target(concesionaria) && args(auto);
+
+    after(Concesionaria concesionaria, Observe observer): addObserverPointcut(concesionaria, observer) {
+        System.out.println("Nuevo observador agregado: " + observer);
     }
 
-    after(Auto auto, Observe observer): removeObserverPointcut(auto, observer) {
-        auto.observers.remove(observer);
+    after(Concesionaria concesionaria, Observe observer): removeObserverPointcut(concesionaria, observer) {
+        System.out.println("Observador removido: " + observer);
     }
 
-    after(Auto auto): updatePointcut(auto) {
-        for (Observe observer : auto.observers) {
-            observer.update(auto);
-        }
+    after(Concesionaria concesionaria, Auto auto): addAutoPointcut(concesionaria, auto) {
+        autos.add(auto);
+        System.out.println("Nuevo auto agregado: " + auto);
     }
-	
 }
+
