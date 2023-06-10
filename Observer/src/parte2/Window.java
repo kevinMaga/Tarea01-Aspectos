@@ -64,6 +64,12 @@ public class Window {
         JPanel panel = new JPanel();
         return panel;
     }
+    public void setBackgroundColor1(Color color) {
+        backgroundColor = color;
+        panel.setBackground(backgroundColor);
+        notifyObservers();
+    }
+    
  // Método para agregar un botón con un color al panel
     private void addColorButton(JPanel panel, String text, Color color) {
         JButton button = new JButton(text);
@@ -74,6 +80,9 @@ public class Window {
         });
         panel.add(button);
     }
+	public Color getBackgroundColor() {
+		return backgroundColor;
+	}
 }
 //Clase observadora que imprime el color de fondo cuando se actualiza
 class ColorObserver {
