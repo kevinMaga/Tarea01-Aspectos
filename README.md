@@ -1,7 +1,10 @@
 # Tarea01-Aspectos
 
 # Funcionalidad adicional:
-Aspecto de Persistencia de Archivos
-Para demostrar la separación de concerns que se puede lograr con la programación orientada a aspectos, se ha añadido un aspecto de persistencia de archivos utilizando AspectJ. Este aspecto se encuentra en la clase PersistenciaColorAspecto.
+En el nuevo aspecto llamado "FilePersistenceAspect", se definen dos puntos de corte: uno para capturar la llamada al método setBackgroundColor y otro para capturar la llamada al método initialize de la clase Window.
 
-Cada vez que se cambia el color de fondo de la ventana (es decir, después de que se ejecuta el método actionPerformed en la clase VentanaColor), el aspecto PersistenciaColorAspecto se activa. Este aspecto escribe en el archivo "historial.txt" la fecha y hora actuales, seguidas de una cadena que indica el nuevo color de fondo.
+El advice después del punto de corte setBackgroundColorCall se ejecutará después de que se establezca el color de fondo de la ventana, y guardará el estado de la ventana en un archivo utilizando la serialización de objetos.
+
+El advice después del punto de corte initializeCall se ejecutará después de que se inicialice la ventana y cargará el estado de la ventana desde el archivo guardado previamente.
+
+Estos aspectos proporcionan la funcionalidad adicional necesaria para la persistencia de archivos en la clase Window, permitiendo guardar y cargar el estado de la ventana desde un archivo.
