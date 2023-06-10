@@ -36,9 +36,18 @@ public class VentanaColor extends JFrame implements ActionListener {
 
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "Rojo":
+                getContentPane().setBackground(Color.RED);
+                break;
+            case "Verde":
+                getContentPane().setBackground(Color.GREEN);
+                break;
+            case "Azul":
+                getContentPane().setBackground(Color.BLUE);
+                break;
+        }
+    }
 }
