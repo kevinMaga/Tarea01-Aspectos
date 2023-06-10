@@ -1,6 +1,5 @@
 package observer;
-import java.util.List;
-import java.util.ArrayList;
+
 
 public aspect ObserverAspect {
 	
