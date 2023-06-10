@@ -1,0 +1,13 @@
+2023-06-10T12:42:48.940170800 - Se ha cambiado el color a: Rojo
+2023-06-10T12:42:49.965316700 - Se ha cambiado el color a: Verde
+2023-06-10T12:42:50.545887900 - Se ha cambiado el color a: Azul
+2023-06-10T12:42:51.390611700 - Se ha cambiado el color a: Verde
+2023-06-10T12:42:51.885635 - Se ha cambiado el color a: Rojo
+2023-06-10T12:42:52.417349200 - Se ha cambiado el color a: Azul
+2023-06-10T12:42:52.957947500 - Se ha cambiado el color a: Verde
+2023-06-10T12:42:53.795715600 - Se ha cambiado el color a: Rojo
+2023-06-10T12:42:54.528072700 - Se ha cambiado el color a: Verde
+2023-06-10T12:42:55.263689400 - Se ha cambiado el color a: Azul
+2023-06-10T12:44:26.070079300 - Se ha cambiado el color a: Rojo
+2023-06-10T12:44:26.459620800 - Se ha cambiado el color a: Verde
+2023-06-10T12:44:26.947911300 - Se ha cambiado el color a: Azul
