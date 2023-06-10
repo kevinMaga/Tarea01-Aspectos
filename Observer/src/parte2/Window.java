@@ -5,14 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
- public class Window {
+public class Window {
     private List<ColorObserver> observers = new ArrayList<>();
     private Color backgroundColor;
+    private JPanel panel;
 
     public void addObserver(ColorObserver observer) {
         observers.add(observer);
@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 
     public void setBackgroundColor(Color color) {
         backgroundColor = color;
+        panel.setBackground(backgroundColor);
         notifyObservers();
     }
 
@@ -30,46 +31,45 @@ import javax.swing.JPanel;
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Ventana con Observer");
-        JPanel panel = new JPanel();
-
         Window window = new Window();
+        window.initialize();
+    }
+
+    private void initialize() {
+        JFrame frame = new JFrame("Ventana con Observer");
+        JPanel panel = createPanel();
+
+        this.panel = panel;
 
         ColorObserver observer1 = new ColorObserver();
         ColorObserver observer2 = new ColorObserver();
 
-        window.addObserver(observer1);
-        window.addObserver(observer2);
+        addObserver(observer1);
+        addObserver(observer2);
 
-        JButton button1 = new JButton("Color 1");
-        button1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                window.setBackgroundColor(Color.RED);
-            }
-        });
+        addColorButton(panel, "Color 1", Color.yellow);
+        addColorButton(panel, "Color 2", Color.blue);
+        addColorButton(panel, "Color 3", Color.black);
 
-        JButton button2 = new JButton("Color 2");
-        button2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                window.setBackgroundColor(Color.GREEN);
-            }
-        });
-
-        JButton button3 = new JButton("Color 3");
-        button3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                window.setBackgroundColor(Color.BLUE);
-            }
-        });
-
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(button3);
-
-        frame.getContentPane().add(panel);
-        frame.setSize(500, 500);
+        frame.add(panel);
+        frame.setSize(300, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    private JPanel createPanel() {
+        JPanel panel = new JPanel();
+        return panel;
+    }
+
+    private void addColorButton(JPanel panel, String text, Color color) {
+        JButton button = new JButton(text);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setBackgroundColor(color);
+            }
+        });
+        panel.add(button);
     }
 }
 
@@ -78,5 +78,4 @@ class ColorObserver {
         System.out.println("Nuevo color de fondo: " + backgroundColor);
     }
 }
-
 
