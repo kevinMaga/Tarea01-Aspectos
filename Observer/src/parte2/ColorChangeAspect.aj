@@ -9,10 +9,7 @@ public aspect ColorChangeAspect {
     pointcut changeBackgroundColorCall(Window window, Color color) :
         call(void Window.setBackgroundColor(Color)) && target(window) && args(color);
 
-    // Advice que se ejecutará después de cambiar el color de fondo de la ventana
-    after(Window window, Color color) returning : changeBackgroundColorCall(window, color) {
-        System.out.println("Nuevo color de fondo: " + color);
-    }
+ 
 
     // Pointcut para capturar la llamada al método addObserver del objeto Window
     pointcut addObserverCall(Window window, ColorObserver observer) :
