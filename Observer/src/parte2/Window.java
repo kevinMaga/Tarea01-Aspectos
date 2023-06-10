@@ -67,7 +67,7 @@ import javax.swing.JPanel;
         panel.add(button3);
 
         frame.getContentPane().add(panel);
-        frame.setSize(300, 200);
+        frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
