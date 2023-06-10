@@ -1,14 +1,11 @@
 package parte2;
 
 import java.awt.Color;
-<<<<<<< Updated upstream
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-=======
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
->>>>>>> Stashed changes
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,13 +32,6 @@ public aspect FilePersistenceAspect {
     // Método para guardar el estado de la ventana en un archivo de texto
     private void saveWindowState(Window window) {
         try {
-<<<<<<< Updated upstream
-            BufferedWriter writer = new BufferedWriter(new FileWriter("window_state.txt"));
-            writer.write(window.getBackgroundColor().getRGB() + "\n");
-            writer.close();
-            System.out.println("Estado de la ventana guardado en window_state.txt");
-        } catch (IOException e) {
-=======
         	File file = new File("window_state.ser");
         	if (!file.exists()) {
         	    file.createNewFile();
@@ -54,7 +44,6 @@ public aspect FilePersistenceAspect {
             window.setBackgroundColor(loadedWindow.getBackgroundColor());
             System.out.println("Estado de la ventana cargado desde 'window_state.ser'");
         } catch (IOException | ClassNotFoundException e) {
->>>>>>> Stashed changes
             e.printStackTrace();
         }
     }
