@@ -10,20 +10,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Window {
+	// Lista de observadores que recibirán notificaciones de cambios de color
     private List<ColorObserver> observers = new ArrayList<>();
+    // Color de fondo actual de la ventana
     private Color backgroundColor;
+    // Panel de la ventana
     private JPanel panel;
 
     public void addObserver(ColorObserver observer) {
         observers.add(observer);
     }
-
+    // Método para establecer el color de fondo de la ventana
     public void setBackgroundColor(Color color) {
         backgroundColor = color;
         panel.setBackground(backgroundColor);
         notifyObservers();
     }
-
+    // Método para notificar a los observadores del cambio de color
     private void notifyObservers() {
         for (ColorObserver observer : observers) {
             observer.update(backgroundColor);
@@ -34,7 +37,7 @@ public class Window {
         Window window = new Window();
         window.initialize();
     }
-
+    // Método para inicializar la ventana
     private void initialize() {
         JFrame frame = new JFrame("Ventana con Observer");
         JPanel panel = createPanel();
@@ -56,12 +59,12 @@ public class Window {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
+    // Método para crear el panel de la ventana
     private JPanel createPanel() {
         JPanel panel = new JPanel();
         return panel;
     }
-
+ // Método para agregar un botón con un color al panel
     private void addColorButton(JPanel panel, String text, Color color) {
         JButton button = new JButton(text);
         button.addActionListener(new ActionListener() {
@@ -72,7 +75,7 @@ public class Window {
         panel.add(button);
     }
 }
-
+//Clase observadora que imprime el color de fondo cuando se actualiza
 class ColorObserver {
     public void update(Color backgroundColor) {
         System.out.println("Nuevo color de fondo: " + backgroundColor);
