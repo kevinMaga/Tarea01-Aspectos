@@ -31,8 +31,8 @@ public class Concesionaria {
 	
 	public void notifyObservers(Auto auto) {
 		
-		for(Observe observer : observers) {
-			observer.update(auto);
+		for(Observe observers : observers) {
+			observers.update(auto);
 		}
 		
 	}

@@ -27,6 +27,8 @@ public class Main {
     	
     	concesionaria.addAuto(auto);
     	
+    	   	
+    	
     	auto.setColor("Rojo");
     	
     	concesionaria.removeObserver(cliente2);
