@@ -3,13 +3,14 @@ package parte2;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Window {
+public class Window implements Serializable {
 	// Lista de observadores que recibirán notificaciones de cambios de color
     private List<ColorObserver> observers = new ArrayList<>();
     // Color de fondo actual de la ventana
@@ -85,7 +86,7 @@ public class Window {
 	}
 }
 //Clase observadora que imprime el color de fondo cuando se actualiza
-class ColorObserver {
+class ColorObserver implements Serializable{
     public void update(Color backgroundColor) {
         System.out.println("Nuevo color de fondo: " + backgroundColor);
     }
