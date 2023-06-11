@@ -17,6 +17,9 @@ public class Window implements Serializable {
     private Color backgroundColor;
     // Panel de la ventana
     private JPanel panel;
+    private JButton colorButton1;
+    private JButton colorButton2;
+    private JButton colorButton3;
 
     public void addObserver(ColorObserver observer) {
         observers.add(observer);
@@ -50,10 +53,18 @@ public class Window implements Serializable {
 
         addObserver(observer1);
         addObserver(observer2);
-
-        addColorButton(panel, "Color 1", Color.yellow);
-        addColorButton(panel, "Color 2", Color.blue);
-        addColorButton(panel, "Color 3", Color.black);
+     // Botón para iniciar/detener el desplazamiento automático
+        JButton startButton = new JButton("Iniciar Desplazamiento Automático");
+        startButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ColorScroller.startColorScrolling(Window.this, colorButton1.getBackground(), colorButton2.getBackground(), colorButton3.getBackground());
+            }
+        });
+        panel.add(startButton);
+        
+        colorButton1 = addColorButton(panel, "Color 1", Color.yellow);
+        colorButton2 = addColorButton(panel, "Color 2", Color.blue);
+        colorButton3 = addColorButton(panel, "Color 3", Color.black);
 
         frame.add(panel);
         frame.setSize(300, 200);
@@ -72,14 +83,16 @@ public class Window implements Serializable {
     }
     
  // Método para agregar un botón con un color al panel
-    private void addColorButton(JPanel panel, String text, Color color) {
+    private JButton  addColorButton(JPanel panel, String text, Color color) {
         JButton button = new JButton(text);
+        button.setBackground(color);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setBackgroundColor(color);
             }
         });
         panel.add(button);
+        return button;
     }
 	public Color getBackgroundColor() {
 		return backgroundColor;

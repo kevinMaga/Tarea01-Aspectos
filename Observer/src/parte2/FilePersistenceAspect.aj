@@ -1,74 +1,63 @@
 package parte2;
+
 import java.awt.Color;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public aspect FilePersistenceAspect {
+    // Pointcut para capturar la llamada al método startColorScrolling de la clase parte2.ColorScroller
+    pointcut startColorScrollingCall(Window window, Color... colorArray) :
+        call(void ColorScroller.startColorScrolling(Window, Color[])) && target(window) && args(colorArray);
+
+    // Advice que se ejecutará después de iniciar el desplazamiento automático
+    after(Window window, Color... colorArray) returning : startColorScrollingCall(window, colorArray) {
+        String event = "Inicio del desplazamiento automático";
+        logColorScrollEvent(event);
+    }
+
     // Pointcut para capturar la llamada al método setBackgroundColor de la clase parte2.Window
     pointcut setBackgroundColorCall(Window window, Color color) :
         call(void Window.setBackgroundColor(Color)) && target(window) && args(color);
 
     // Advice que se ejecutará después de cambiar el color de fondo de la ventana
     after(Window window, Color color) returning : setBackgroundColorCall(window, color) {
-        saveWindowState(window);
+        String event = "Cambio de color a " + color.toString();
+        logColorScrollEvent(event);
     }
 
-    // Pointcut para capturar la llamada al método initialize de la clase parte2.Window
-    pointcut initializeCall(Window window) : call(void Window.initialize()) && target(window);
+    // Pointcut para capturar la llamada al método stopColorScrolling de la clase parte2.ColorScroller
+    pointcut stopColorScrollingCall(Window window) :
+        call(void ColorScroller.stopColorScrolling(Window)) && target(window);
 
-    // Advice que se ejecutará después de inicializar la ventana
-    after(Window window) returning : initializeCall(window) {
-        loadWindowState(window);
+    // Advice que se ejecutará después de detener el desplazamiento automático
+    after(Window window) returning : stopColorScrollingCall(window) {
+        String event = "Fin del desplazamiento automático";
+        logColorScrollEvent(event);
     }
 
-    // Método para guardar el estado de la ventana en un archivo de texto
-    private void saveWindowState(Window window) {
+    // Método para registrar un evento del desplazamiento automático en el archivo de registro
+    private void logColorScrollEvent(String event) {
+        String currentTime = getCurrentTime();
+        String logEntry = currentTime + " - " + event;
+
         try {
-        	File file = new File("window_state.ser");
-        	if (!file.exists()) {
-        	    file.createNewFile();
-        	}
-            FileOutputStream fileIn = new FileOutputStream(file);
-            ObjectOutputStream in = new ObjectOutputStream(fileIn);
-            in.writeObject(window);
-            in.close();
-            fileIn.close();
-           
-            System.out.println("Estado de la ventana guardado en 'window_state.ser'");
-        } catch (Exception  e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Método para cargar el estado de la ventana desde un archivo de texto
-    private void loadWindowState(Window window) {
-        Path filePath = Paths.get("window_state.ser");
-        try {
-            if (Files.exists(filePath)) {
-            	FileInputStream fis = new FileInputStream("window_state.ser");
-            	try (ObjectInputStream ois = new ObjectInputStream(fis)) {
-					Window tempWind = (Window) ois.readObject();
-					
-					window.setBackgroundColor(tempWind.getBackgroundColor());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	System.out.println("Estado de la ventana cargado desde window_state.ser");
-            } else {
-                System.out.println("No se encontró el archivo window_state.ser. Se usará el color predeterminado.");
-            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter("color_scroll_log.txt", true));
+            writer.write(logEntry);
+            writer.newLine();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-   
-}
 
+    // Método para obtener la hora actual en formato HH:mm:ss
+    private String getCurrentTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Date now = new Date();
+        return sdf.format(now);
+    }
+}
