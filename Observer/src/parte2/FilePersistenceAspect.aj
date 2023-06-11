@@ -14,11 +14,11 @@ public aspect FilePersistenceAspect {
         call(void ColorScroller.startColorScrolling(Window, Color[])) && target(window) && args(colorArray);
 
     // Advice que se ejecutará después de iniciar el desplazamiento automático
-    after(Window window, Color... colorArray) returning : startColorScrollingCall(window, colorArray) {
+    after(Window window, Color[] colors) returning : startColorScrollingCall(window, colors) {
         String event = "Inicio del desplazamiento automático";
         logColorScrollEvent(event);
     }
-
+    
     // Pointcut para capturar la llamada al método setBackgroundColor de la clase parte2.Window
     pointcut setBackgroundColorCall(Window window, Color color) :
         call(void Window.setBackgroundColor(Color)) && target(window) && args(color);

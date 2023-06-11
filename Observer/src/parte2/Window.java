@@ -76,11 +76,7 @@ public class Window implements Serializable {
         JPanel panel = new JPanel();
         return panel;
     }
-    public void setBackgroundColor1(Color color) {
-        backgroundColor = color;
-        panel.setBackground(backgroundColor);
-        notifyObservers();
-    }
+  
     
  // Método para agregar un botón con un color al panel
     private JButton  addColorButton(JPanel panel, String text, Color color) {
