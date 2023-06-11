@@ -7,4 +7,4 @@ El advice después del punto de corte setBackgroundColorCall se ejecutará despu
 
 El advice después del punto de corte initializeCall se ejecutará después de que se inicialice la ventana y cargará el estado de la ventana desde el archivo guardado previamente.
 
-Estos aspectos proporcionan la funcionalidad adicional necesaria para la persistencia de archivos en la clase Window, permitiendo guardar y cargar el estado de la ventana desde un archivo.
+Estos aspectos proporcionan la funcionalidad adicional necesaria para la persistencia de archivos en la clase Window, permitiendo guardar y cargar el estado de la ventana desde un archivo
